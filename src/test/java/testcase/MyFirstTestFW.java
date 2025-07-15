@@ -1,26 +1,39 @@
 package testcase;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import base.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+import utilities.ReadXLSdata;
 
-public class MyFirstTest {
-    public static void main(String[] args) throws InterruptedException {
+public class MyFirstTestFW extends BaseTest {
 
+    @Test(dataProviderClass = ReadXLSdata.class, dataProvider = "bvtdata")
+    public void LoginTest(String username, String password) throws InterruptedException {
 
-
-
-        driver.findElement(By.xpath("//a[@class='zgh-login'][normalize-space()='Sign In']")).click();
         Thread.sleep(2000);
-        driver.findElement(By.id("login_id")).sendKeys("rcvtutorials@gmail.com");
-
-        driver.findElement(By.xpath("//button[@id='nextbtn']")).click();
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("testautomation@123");
-        driver.findElement(By.xpath("//button[@id='nextbtn']")).click();
-
+        driver.findElement(By.xpath(loc.getProperty("signin_button"))).click();
+        Thread.sleep(4000);
+        driver.findElement(By.id(loc.getProperty("email_field"))).sendKeys(username);
+        Thread.sleep(4000);
+        driver.findElement(By.xpath(loc.getProperty("next_button"))).click();
+        Thread.sleep(4000);
+        driver.findElement(By.xpath(loc.getProperty("pwd_button"))).sendKeys(password);
+        Thread.sleep(4000);
+        driver.findElement(By.xpath(loc.getProperty("login_next_button"))).click();
 
 
     }
+
+//    @DataProvider(name ="testdata")
+//    public Object[][] tData()
+//    {
+//        return new Object[][]{
+//                {"rcvtutorials@gmail.com","testautomation@123"},
+//                {"rcvtutorials@gmail.com","testautomation4@123"},
+//                {"rcvtutorials@gmail.com","testautomation3@123"},
+//                {"rcvtutorials@gmail.com","testautomation123@123"}
+//
+//        };
+//    }
 }
